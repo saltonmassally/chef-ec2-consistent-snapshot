@@ -16,3 +16,6 @@ suites:
 - name: default
   run_list: ["recipe[ec2-consistent-snapshot]"]
   attributes: {}
+- name: lwrp
+  run_list: ["recipe[ec2-consistent-snapshot-test]"]
+  attributes: {}
