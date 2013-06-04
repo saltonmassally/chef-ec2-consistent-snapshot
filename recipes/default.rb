@@ -16,3 +16,11 @@ remote_file "/usr/bin/ec2-consistent-snapshot" do
   group    "root"
   mode     0700
 end
+
+template "/root/.awssecret" do
+  source "awssecret.erb"
+  variables({
+    access_key_id: node['ec2-consistent-snapshot']['aws_access_key_id'],
+    secret_access_key: node['ec2-consistent-snapshot']['aws_secret_access_key']
+  })
+end

@@ -9,3 +9,7 @@
 
   [ "$status" -eq 0 ]
 }
+
+@test ".awssecret file should be written" {
+  [ "$(cat ~/.awssecret | wc -l)" -eq 2 ]
+}
