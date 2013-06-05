@@ -5,7 +5,10 @@
 
 include_recipe "yum::epel"
 
-%w{ perl-Net-Amazon-EC2 perl-File-Slurp perl-DBI perl-DBD-MySQL perl-Net-SSLeay perl-IO-Socket-SSL perl-Time-HiRes perl-DateTime perl-Params-Validate }.each do |p|
+%w{
+  perl-Net-Amazon-EC2 perl-File-Slurp perl-DBI perl-DBD-MySQL perl-Net-SSLeay perl-IO-Socket-SSL perl-Time-HiRes
+  perl-DateTime perl-Params-Validate xfsprogs
+}.each do |p|
   package p
 end
 

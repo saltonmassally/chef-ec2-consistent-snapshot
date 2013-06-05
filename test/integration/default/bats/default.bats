@@ -13,3 +13,7 @@
 @test ".awssecret file should be written" {
   [ "$(cat ~/.awssecret | wc -l)" -eq 2 ]
 }
+
+@test "xfsprogs should be installed" {
+  [ "$(which xfs_freeze)" ]
+}
