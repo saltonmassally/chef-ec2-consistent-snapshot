@@ -1,0 +1,3 @@
+# TODO
+
+* Handle negative cases e.g. missing aws keys, etc...
