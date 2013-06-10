@@ -13,6 +13,7 @@ action :create do
       :region            => new_resource.region,
       :mysql_username    => new_resource.mysql_username,
       :freeze_filesystem => new_resource.freeze_filesystem,
+      :mysql_socket      => new_resource.mysql_socket,
       :volumes           => new_resource.volumes
     })
 

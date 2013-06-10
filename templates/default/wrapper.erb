@@ -5,4 +5,7 @@ ec2-consistent-snapshot \
 --mysql \
 --mysql-username=<%= @mysql_username %> \
 --freeze-filesystem <%= @freeze_filesystem %> \
+<% if @mysql_socket -%>
+--mysql-socket=<%= @mysql_socket %> \
+<% end -%>
 <%= @volumes.join(" ") %>

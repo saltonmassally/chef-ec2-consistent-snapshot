@@ -6,5 +6,6 @@
   [ "$(cat /usr/local/bin/snapshot_wrapper | grep '\-\-mysql ')" ]
   [ "$(cat /usr/local/bin/snapshot_wrapper | grep '\-\-mysql-username=root')" ]
   [ "$(cat /usr/local/bin/snapshot_wrapper | grep '\-\-freeze-filesystem /var/lib/mysql')" ]
+  [ "$(cat /usr/local/bin/snapshot_wrapper | grep '\-\-mysql-socket=/var/run/mysqld/mysqld.sock')" ]
   [ "$(cat /usr/local/bin/snapshot_wrapper | grep 'vol-abcd123')" ]
 }
