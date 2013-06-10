@@ -15,6 +15,8 @@ action :create do
       :freeze_filesystem => new_resource.freeze_filesystem,
       :volumes           => new_resource.volumes
     })
+
+    mode 0700
   end
 
   new_resource.updated_by_last_action(true)
