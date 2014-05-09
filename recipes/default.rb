@@ -3,28 +3,61 @@
 # Recipe:: default
 #
 
-include_recipe "yum::epel"
-include_recipe "xfs"
-
-%w{
-  perl-Net-Amazon-EC2 perl-File-Slurp perl-DBI perl-DBD-MySQL perl-Net-SSLeay perl-IO-Socket-SSL perl-Time-HiRes
-  perl-DateTime perl-Params-Validate
-}.each do |p|
-  package p
+bash "update_ppa" do
+    code <<-EOH
+    add-apt-repository ppa:alestic 
+    apt-get update
+    EOH
 end
 
-remote_file "/usr/bin/ec2-consistent-snapshot" do
-  source   "https://raw.github.com/alestic/ec2-consistent-snapshot/master/ec2-consistent-snapshot"
-  checksum "cd401d2e1aedf7c9d390e4bc50c08b7cebc631e709a9677c146800c06d42069a"
+package 'ec2-consistent-snapshot'
+
+package 'ec2-expire-snapshots'
+
+template "/usr/bin/snapshot_create" do
+  source "snapshot_create.sh.erb"
   owner    "root"
   group    "root"
-  mode     0700
+  mode     "0700"
 end
 
-template "/root/.awssecret" do
-  source "awssecret.erb"
-  variables({
-    access_key_id: node['ec2-consistent-snapshot']['aws_access_key_id'],
-    secret_access_key: node['ec2-consistent-snapshot']['aws_secret_access_key']
-  })
+template "/usr/bin/snapshot_delete" do
+  source "snapshot_delete.sh.erb"
+  owner    "root"
+  group    "root"
+  mode     "0700"
+end
+
+directory '/var/log/snapshotting' do
+  mode '0777'
+  owner "root"
+  group "root"
+end
+
+file "/var/log/snapshotting/backup-create.log" do
+  owner "root"
+  group "root"
+  mode "0777"
+  action :create
+end
+
+file "/var/log/snapshotting/backup-delete.log" do
+  owner "root"
+  group "root"
+  mode "0777"
+  action :create
+end
+
+cron "snapshot_create_cron" do
+   command "/usr/bin/snapshot_create >> /var/log/snapshotting/backup-create.log"
+   hour "*/12"
+   minute "0"
+   only_if  { File.exist?("/usr/bin/snapshot_create") }
+end
+
+cron "snapshot_delete_cron" do
+   command "/usr/bin/snapshot_delete >> /var/log/snapshotting/backup-delete.log"
+   hour "3"
+   minute "0"
+   only_if  { File.exist?("/usr/bin/snapshot_delete") }
 end

@@ -1,13 +1,14 @@
-# ec2-consistent-snapshot cookbook
+# chef-ec2-ebs-snapshot cookbook
 
-# Requirements
-
-# Usage
+configures automatic ebs snapshotting for opswork. Handles both snapshotting and expiry of snapshots 
 
 # Attributes
 
+
 # Recipes
+
+
 
 # Author
 
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+Author:: Salton Massally (<salton.massally@gmail.com>)

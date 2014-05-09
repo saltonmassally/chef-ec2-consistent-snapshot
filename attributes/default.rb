@@ -1,2 +1,9 @@
-default["ec2-consistent-snapshot"]["aws_access_key_id"]     = nil
-default["ec2-consistent-snapshot"]["aws_secret_access_key"] = nil
+default[:chef_ec2_ebs_snapshot][:description] = "Careers.sl File Backup $(date +'%Y-%m-%d %H:%M:%S')"
+default[:chef_ec2_ebs_snapshot][:region] = 'eu-west-1'
+default[:chef_ec2_ebs_snapshot][:aws_access_id] = 'secret'
+default[:chef_ec2_ebs_snapshot][:aws_secret_access_key] = 'secret'
+default[:chef_ec2_ebs_snapshot][:volume_id] = ''
+default[:chef_ec2_ebs_snapshot][:ec2_consistent_snapshot][:freeze] = 'true'
+default[:chef_ec2_ebs_snapshot][:ec2_expire_snapshot][:keep_most_recent] = 10
+default[:chef_ec2_ebs_snapshot][:ec2_expire_snapshot][:keep_first_daily ] = 7
+default[:chef_ec2_ebs_snapshot][:ec2_expire_snapshot][:keep_first_monthly] = 12
